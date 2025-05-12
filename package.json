@@ -1,0 +1,12 @@
+{
+  "name": "portfolio1",
+  "version": "1.0.0",
+  "description": "Een webapplicatie waarmee je Pokémon kunt bekijken, zoeken, filteren en als favoriet markeren.  \r Gebouwd met HTML, CSS, JavaScript en Vite.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
