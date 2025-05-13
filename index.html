@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pokémon Cards L.N</title>
+  <meta charset="UTF-8">
+  <title>Pokémon App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <header>
     <h1>Pokémon Explorer</h1>
-    <input type="text" id="search" placeholder="Zoek op naam..." />
-    <select id="type-filter">
-      <option value="">Alle types</option>
-    </select>
+    <input id="zoek" type="text" placeholder="Zoek op naam...">
+    <input id="min-hp" type="number" placeholder="Min HP">
+    <input id="min-attack" type="number" placeholder="Min Attack">
+    <div id="type-knoppen"></div>
   </header>
   <main>
-    <div id="pokemon-cards" class="card-container"></div>
-    <section id="favorites-section">
+    <div id="pokemon-kaarten" class="kaart-container"></div>
+    <section id="favorieten-sectie">
       <h2>Favorieten</h2>
-      <ul id="favorites-list"></ul>
+      <ul id="favorieten-lijst"></ul>
     </section>
   </main>
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <span id="close-modal" class="close">&times;</span>
+  <div id="modal" class="modal verborgen">
+    <div class="modal-inhoud">
+      <span id="sluit-modal" class="sluit">&times;</span>
       <div id="modal-details"></div>
     </div>
   </div>

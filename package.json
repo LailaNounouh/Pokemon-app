@@ -1,12 +1,15 @@
 {
-  "name": "portfolio1",
-  "version": "1.0.0",
-  "description": "Een webapplicatie waarmee je Pokémon kunt bekijken, zoeken, filteren en als favoriet markeren.  \r Gebouwd met HTML, CSS, JavaScript en Vite.",
-  "main": "main.js",
+  "name": "pokemon-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
 }
+
