@@ -54,3 +54,4 @@ export function toonModal(pokemon) {
   `;
   modal.classList.remove('verborgen');
 }
+

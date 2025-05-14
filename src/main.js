@@ -17,11 +17,9 @@ async function init() {
 function maakTypeKnoppen() {
   const types = new Set();
   allePokemon.forEach(p => p.types.forEach(t => types.add(t.type.name)));
-  const container = document.getElementById('type-knoppen');
   container.innerHTML = '';
 
   const allesBtn = document.createElement('button');
-  allesBtn.textContent = 'Alle types';
   allesBtn.dataset.type = '';
   allesBtn.className = 'type-knop actief';
   container.appendChild(allesBtn);
@@ -34,3 +32,22 @@ function maakTypeKnoppen() {
     container.appendChild(btn);
   });
 }
+
+
+const zoekInput = document.getElementById('zoek');
+const minHpInput = document.getElementById('min-hp');
+const minAttackInput = document.getElementById('min-attack');
+
+function filterEnToon() {
+  const zoekTerm = zoekInput.value.toLowerCase();
+  let gefilterd = allePokemon.filter(p => p.name.toLowerCase().includes(zoekTerm));
+  if (gekozenType) {
+    gefilterd = gefilterd.filter
+  const minHp = Number(minHpInput.value) || 0;
+  const minAttack = Number(minAttackInput.value) 
+  gefilterd = gefilterd.filter(p => 
+    p.stats[0].base_stat >= minHp &&
+    p.stats[1].base_stat >= minAttack
+  );
+  toonPokemonKaarten(gefilterd);
+}}
