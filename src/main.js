@@ -28,7 +28,6 @@ function maakTypeKnoppen() {
     const btn = document.createElement('button');
     btn.textContent = type.charAt(0).toUpperCase() + type.slice(1);
     btn.dataset.type = type;
-    btn.className = 'type-knop';
     container.appendChild(btn);
   });
 }
