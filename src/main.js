@@ -51,3 +51,17 @@ function filterEnToon() {
   );
   toonPokemonKaarten(gefilterd);
 }}
+
+zoekInput.addEventListener('input', filterEnToon);
+minHpInput.addEventListener('input', filterEnToon);
+minAttackInput.addEventListener('input', filterEnToon);
+
+document.getElementById('type-knoppen').addEventListener('click', (e) => {
+  if (e.target.classList.contains('type-knop')) {
+    document.querySelectorAll('.type-knop').forEach(btn => btn.classList.remove('actief'));
+    e.target.classList.add('actief');
+    gekozenType = e.target.dataset.type;
+    filterEnToon();
+  }
+});
+
