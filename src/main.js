@@ -30,6 +30,20 @@ document.getElementById('type-knoppen').addEventListener('click', (e) => {
     gekozenType = e.target.dataset.type;
     filterEnToon();
   }
-})
+});
 
+function filterEnToon() {
+  let gefilterd = allePokemon;
+  const zoekTerm = zoekInput.value.toLowerCase();
 
+  if (zoekTerm) {
+    gefilterd = gefilterd.filter(p => p.name.includes(zoekTerm));
+  }
+
+  
+  if (gekozenType) {
+    gefilterd = gefilterd.filter(p => p.name.startsWith(gekozenType[0])); 
+  }
+
+  toonPokemon(gefilterd);
+}
