@@ -1,16 +1,10 @@
-// DOMmanager.js
 // Functies voor het tonen van Pokémon-kaarten, favorieten en modals
 // Gebruikt: toonPokemonKaarten, toonFavorieten, toonModal
-
-// DOMmanager.js
 // Bron: https://developer.mozilla.org/en-US/docs/Web/API/Document
 
 import { haalFavorieten } from './favorieten.js';
 
-
- //Toont alle Pokémon-kaarten op de pagina.
- // Observer API: voegt animatie toe als een kaart in beeld komt.
- 
+// Toont alle Pokémon-kaarten op de pagina + Observer API
 export function toonPokemonKaarten(lijst) {
     const container = document.getElementById('pokemon-kaarten');
     container.innerHTML = '';
@@ -43,9 +37,7 @@ export function toonPokemonKaarten(lijst) {
     document.querySelectorAll('.pokemon-kaart').forEach(kaart => observer.observe(kaart));
 }
 
-/**
- * Toont de favorietenlijst.
- */
+// Toont de favorietenlijst.
 export function toonFavorieten(allePokemon = []) {
     const favorieten = haalFavorieten();
     const lijst = document.getElementById('favorieten-lijst');
@@ -60,9 +52,7 @@ export function toonFavorieten(allePokemon = []) {
     });
 }
 
-//Toont een modal met uitgebreide info van de geselecteerde Pokémon.
-//Minstens 6 kolommen info: naam, types, HP, attack, defense, gewicht, lengte.
- 
+// Toont een modal met uitgebreide info van de geselecteerde Pokémon (6 kolommen)
 export function toonModal(pokemon) {
     const modal = document.getElementById('modal');
     const details = document.getElementById('modal-details');

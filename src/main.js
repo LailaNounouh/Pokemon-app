@@ -1,8 +1,4 @@
 // main.js
-// Hoofdlogica voor initialisatie, filtering, zoeken, events en rendering
-// Technische vereisten: data ophalen, filteren, zoeken, events, rendering
-
-
 import './style.css';
 import { haalPokemonLijst, haalPokemonDetails } from './api.js';
 import { toonPokemonKaarten, toonFavorieten, toonModal } from './DOMmanager.js';
@@ -12,7 +8,6 @@ let allePokemon = [];
 let gekozenType = '';
 
 async function init() {
-    // Haal lijst en details van Pokémon op via PokéAPI
     const lijst = await haalPokemonLijst();
     allePokemon = await Promise.all(lijst.map(p => haalPokemonDetails(p.url)));
     toonPokemonKaarten(allePokemon);
@@ -71,18 +66,25 @@ document.getElementById('type-knoppen').addEventListener('click', (e) => {
     }
 });
 
+// ** Verbeterde eventdelegatie voor kaarten en favoriet-knop **
 document.addEventListener('click', (e) => {
+    // Favoriet-knop
     if (e.target.classList.contains('favoriet-knop')) {
         e.stopPropagation();
         const pokemonId = Number(e.target.dataset.id);
         wisselFavoriet(pokemonId);
         toonFavorieten(allePokemon);
         filterEnToon();
+        return;
     }
-    if (e.target.classList.contains('pokemon-kaart')) {
-        const pokemonId = Number(e.target.dataset.id);
+    // Klik op een kaart of een child van een kaart
+    const kaart = e.target.closest('.pokemon-kaart');
+    if (kaart) {
+        const pokemonId = Number(kaart.dataset.id);
         const poke = allePokemon.find(p => p.id === pokemonId);
-        toonModal(poke);
+        if (poke) {
+            toonModal(poke);
+        }
     }
 });
 
@@ -93,6 +95,13 @@ if (sluitModalBtn) {
         document.getElementById('modal').classList.add('verborgen');
     };
 }
+//klik op de modal-achtergrond sluit ook
+
+document.getElementById('modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') {
+      document.getElementById('modal').classList.add('verborgen');
+  }
+});
 
 // Formulier validatie voor favorieten toevoegen
 document.getElementById('favoriet-form').addEventListener('submit', (e) => {
@@ -103,13 +112,11 @@ document.getElementById('favoriet-form').addEventListener('submit', (e) => {
     foutmelding.textContent = 'Voer een naam in!';
     return;
   }
-  // Controleer of de Pokémon bestaat
   const poke = allePokemon.find(p => p.name.toLowerCase() === naam.toLowerCase());
   if (!poke) {
     foutmelding.textContent = 'Pokémon niet gevonden!';
     return;
   }
-  // Voeg toe aan favorieten
   wisselFavoriet(poke.id);
   toonFavorieten(allePokemon);
   foutmelding.textContent = '';

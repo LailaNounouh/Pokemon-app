@@ -65,7 +65,7 @@ header input[type="text"], header input[type="number"] {
   gap: 2rem;
   justify-content: flex-start;
 }
-.pokemon-kaart {
+/*.pokemon-kaart {
   background: #fde277;
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -103,6 +103,50 @@ header input[type="text"], header input[type="number"] {
   color: #ef5350;
 }
 .verborgen { display: none; }
+*/
+
+#pokemon-kaarten {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+.pokemon-kaart {
+  width: 200px;
+  background: #fff;
+  border-radius: 1em;
+  box-shadow: 0 2px 8px #ccc;
+  padding: 1em;
+  margin: 0;
+  text-align: center;
+  cursor: pointer;
+}
+#modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+#modal.verborgen {
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  padding: 2em;
+  border-radius: 1em;
+  min-width: 320px;
+  max-width: 90vw;
+  position: relative;
+}
+.sluit-knop {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: 2em;
+  cursor: pointer;
+}
 
 /* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 900px) {
