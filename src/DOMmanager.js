@@ -15,7 +15,6 @@ export function toonPokemonKaarten(lijst) {
       <h3>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
       <p><b>Type:</b> ${pokemon.types.map(t => t.type.name).join(', ')}</p>
       <p><b>HP:</b> ${pokemon.stats[0].base_stat}</p>
-      <p><b>Attack:</b> ${pokemon.stats[1].base_stat}</p>
       <p><b>Defense:</b> ${pokemon.stats[2].base_stat}</p>
       <button class="favoriet-knop${favorieten.includes(pokemon.id) ? ' actief' : ''}" data-id="${pokemon.id}">❤️</button>
     `;
