@@ -1,3 +1,8 @@
+// main.js
+// Hoofdlogica voor initialisatie, filtering, zoeken, events en rendering
+// Technische vereisten: data ophalen, filteren, zoeken, events, rendering
+
+
 import './style.css';
 import { haalPokemonLijst, haalPokemonDetails } from './api.js';
 import { toonPokemonKaarten, toonFavorieten, toonModal } from './DOMmanager.js';
@@ -7,32 +12,31 @@ let allePokemon = [];
 let gekozenType = '';
 
 async function init() {
-  const lijst = await haalPokemonLijst();
-  allePokemon = await Promise.all(lijst.map(p => haalPokemonDetails(p.url)));
-  toonPokemonKaarten(allePokemon);
-  toonFavorieten(allePokemon);
-  maakTypeKnoppen();
+    // Haal lijst en details van Pokémon op via PokéAPI
+    const lijst = await haalPokemonLijst();
+    allePokemon = await Promise.all(lijst.map(p => haalPokemonDetails(p.url)));
+    toonPokemonKaarten(allePokemon);
+    toonFavorieten(allePokemon);
+    maakTypeKnoppen();
 }
 
 function maakTypeKnoppen() {
-  const types = new Set();
-  allePokemon.forEach(p => p.types.forEach(t => types.add(t.type.name)));
-  const container = document.getElementById('type-knoppen');
-  container.innerHTML = '';
-
-  const allesBtn = document.createElement('button');
-  allesBtn.textContent = 'Alle types';
-  allesBtn.dataset.type = '';
-  allesBtn.className = 'type-knop actief';
-  container.appendChild(allesBtn);
-
-  types.forEach(type => {
-    const btn = document.createElement('button');
-    btn.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-    btn.dataset.type = type;
-    btn.className = 'type-knop';
-    container.appendChild(btn);
-  });
+    const types = new Set();
+    allePokemon.forEach(p => p.types.forEach(t => types.add(t.type.name)));
+    const container = document.getElementById('type-knoppen');
+    container.innerHTML = '';
+    const allesBtn = document.createElement('button');
+    allesBtn.textContent = 'Alle types';
+    allesBtn.dataset.type = '';
+    allesBtn.className = 'type-knop actief';
+    container.appendChild(allesBtn);
+    types.forEach(type => {
+        const btn = document.createElement('button');
+        btn.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+        btn.dataset.type = type;
+        btn.className = 'type-knop';
+        container.appendChild(btn);
+    });
 }
 
 const zoekInput = document.getElementById('zoek');
@@ -40,54 +44,76 @@ const minHpInput = document.getElementById('min-hp');
 const minAttackInput = document.getElementById('min-attack');
 
 function filterEnToon() {
-  const zoekTerm = zoekInput.value.toLowerCase();
-  let gefilterd = allePokemon.filter(p => p.name.toLowerCase().includes(zoekTerm));
-  if (gekozenType) {
-    gefilterd = gefilterd.filter(p => p.types.some(t => t.type.name === gekozenType));
-  }
-  const minHp = Number(minHpInput.value) || 0;
-  const minAttack = Number(minAttackInput.value) || 0;
-  gefilterd = gefilterd.filter(p => 
-    p.stats[0].base_stat >= minHp &&
-    p.stats[1].base_stat >= minAttack
-  );
-  toonPokemonKaarten(gefilterd);
+    const zoekTerm = zoekInput.value.toLowerCase();
+    let gefilterd = allePokemon.filter(p => p.name.toLowerCase().includes(zoekTerm));
+    if (gekozenType) {
+        gefilterd = gefilterd.filter(p => p.types.some(t => t.type.name === gekozenType));
+    }
+    const minHp = Number(minHpInput.value) || 0;
+    const minAttack = Number(minAttackInput.value) || 0;
+    gefilterd = gefilterd.filter(p =>
+        p.stats[0].base_stat >= minHp &&
+        p.stats[1].base_stat >= minAttack
+    );
+    toonPokemonKaarten(gefilterd);
 }
-
 
 zoekInput.addEventListener('input', filterEnToon);
 minHpInput.addEventListener('input', filterEnToon);
 minAttackInput.addEventListener('input', filterEnToon);
 
 document.getElementById('type-knoppen').addEventListener('click', (e) => {
-  if (e.target.classList.contains('type-knop')) {
-    document.querySelectorAll('.type-knop').forEach(btn => btn.classList.remove('actief'));
-    e.target.classList.add('actief');
-    gekozenType = e.target.dataset.type;
-    filterEnToon();
-  }
+    if (e.target.classList.contains('type-knop')) {
+        document.querySelectorAll('.type-knop').forEach(btn => btn.classList.remove('actief'));
+        e.target.classList.add('actief');
+        gekozenType = e.target.dataset.type;
+        filterEnToon();
+    }
 });
 
 document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('favoriet-knop')) {
-    e.stopPropagation();
-    const pokemonId = Number(e.target.dataset.id);
-    wisselFavoriet(pokemonId);
-    toonFavorieten(allePokemon);
-    filterEnToon();
-  }
-  if (e.target.classList.contains('pokemon-kaart')) {
-    const pokemonId = Number(e.target.dataset.id);
-    const poke = allePokemon.find(p => p.id === pokemonId);
-    toonModal(poke);
-  }
+    if (e.target.classList.contains('favoriet-knop')) {
+        e.stopPropagation();
+        const pokemonId = Number(e.target.dataset.id);
+        wisselFavoriet(pokemonId);
+        toonFavorieten(allePokemon);
+        filterEnToon();
+    }
+    if (e.target.classList.contains('pokemon-kaart')) {
+        const pokemonId = Number(e.target.dataset.id);
+        const poke = allePokemon.find(p => p.id === pokemonId);
+        toonModal(poke);
+    }
 });
 
+// Sluitknop modal
 const sluitModalBtn = document.getElementById('sluit-modal');
 if (sluitModalBtn) {
-  sluitModalBtn.onclick = () => {
-    document.getElementById('modal').classList.add('verborgen');
-  };
+    sluitModalBtn.onclick = () => {
+        document.getElementById('modal').classList.add('verborgen');
+    };
 }
+
+// Formulier validatie voor favorieten toevoegen
+document.getElementById('favoriet-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const naam = document.getElementById('favoriet-naam').value.trim();
+  const foutmelding = document.getElementById('foutmelding');
+  if (!naam) {
+    foutmelding.textContent = 'Voer een naam in!';
+    return;
+  }
+  // Controleer of de Pokémon bestaat
+  const poke = allePokemon.find(p => p.name.toLowerCase() === naam.toLowerCase());
+  if (!poke) {
+    foutmelding.textContent = 'Pokémon niet gevonden!';
+    return;
+  }
+  // Voeg toe aan favorieten
+  wisselFavoriet(poke.id);
+  toonFavorieten(allePokemon);
+  foutmelding.textContent = '';
+  document.getElementById('favoriet-naam').value = '';
+});
 
 init();

@@ -18,3 +18,5 @@ export async function haalPokemonDetails(url) {
   return await antwoord.json();
 }
 
+
+

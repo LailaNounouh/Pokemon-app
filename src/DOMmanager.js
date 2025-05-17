@@ -2,10 +2,15 @@
 // Functies voor het tonen van Pokémon-kaarten, favorieten en modals
 // Gebruikt: toonPokemonKaarten, toonFavorieten, toonModal
 
+// DOMmanager.js
+// Bron: https://developer.mozilla.org/en-US/docs/Web/API/Document
+
 import { haalFavorieten } from './favorieten.js';
 
 
- //Technische vereiste: dynamisch genereren van DOM-elementen voor de kaarten
+ //Toont alle Pokémon-kaarten op de pagina.
+ // Observer API: voegt animatie toe als een kaart in beeld komt.
+ 
 export function toonPokemonKaarten(lijst) {
     const container = document.getElementById('pokemon-kaarten');
     container.innerHTML = '';
@@ -15,7 +20,6 @@ export function toonPokemonKaarten(lijst) {
         const kaart = document.createElement('div');
         kaart.className = 'pokemon-kaart';
         kaart.dataset.id = pokemon.id;
-        // Dynamisch invullen van kaartinfo
         kaart.innerHTML = `
             <img src="${pokemon.sprites.front_default}" class="poke-img" alt="${pokemon.name}">
             <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
@@ -26,10 +30,22 @@ export function toonPokemonKaarten(lijst) {
         `;
         container.appendChild(kaart);
     });
+
+    // Observer API: animatie als kaart in beeld komt
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-beeld');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.pokemon-kaart').forEach(kaart => observer.observe(kaart));
 }
 
-// Technische vereiste: werken met localStorage en dynamische lijst. Het toont lijst van favoriete
- 
+/**
+ * Toont de favorietenlijst.
+ */
 export function toonFavorieten(allePokemon = []) {
     const favorieten = haalFavorieten();
     const lijst = document.getElementById('favorieten-lijst');
@@ -44,20 +60,41 @@ export function toonFavorieten(allePokemon = []) {
     });
 }
 
-// Technische vereiste: modale vensters tonen met extra info
-
+//Toont een modal met uitgebreide info van de geselecteerde Pokémon.
+//Minstens 6 kolommen info: naam, types, HP, attack, defense, gewicht, lengte.
+ 
 export function toonModal(pokemon) {
     const modal = document.getElementById('modal');
     const details = document.getElementById('modal-details');
     details.innerHTML = `
         <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
         <img src="${pokemon.sprites.front_default}" class="poke-img" alt="${pokemon.name}">
-        <p><strong>Types:</strong> ${pokemon.types.map(t => t.type.name).join(', ')}</p>
-        <p><strong>HP:</strong> ${pokemon.stats[0].base_stat}</p>
-        <p><strong>Attack:</strong> ${pokemon.stats[1].base_stat}</p>
-        <p><strong>Defense:</strong> ${pokemon.stats[2].base_stat}</p>
-        <p><strong>Weight:</strong> ${pokemon.weight}</p>
-        <p><strong>Height:</strong> ${pokemon.height}</p>
+        <table>
+          <tr>
+            <td><strong>Types:</strong></td>
+            <td>${pokemon.types.map(t => t.type.name).join(', ')}</td>
+          </tr>
+          <tr>
+            <td><strong>HP:</strong></td>
+            <td>${pokemon.stats[0].base_stat}</td>
+          </tr>
+          <tr>
+            <td><strong>Attack:</strong></td>
+            <td>${pokemon.stats[1].base_stat}</td>
+          </tr>
+          <tr>
+            <td><strong>Defense:</strong></td>
+            <td>${pokemon.stats[2].base_stat}</td>
+          </tr>
+          <tr>
+            <td><strong>Gewicht:</strong></td>
+            <td>${pokemon.weight}</td>
+          </tr>
+          <tr>
+            <td><strong>Lengte:</strong></td>
+            <td>${pokemon.height}</td>
+          </tr>
+        </table>
     `;
     modal.classList.remove('verborgen');
 }
