@@ -83,5 +83,23 @@ function maakTypeKnoppen() {
   });
 }
 
+function filterEnToon() {
+  const zoekInput = document.getElementById('zoek');
+  const minHpInput = document.getElementById('min-hp');
+  const minAttackInput = document.getElementById('min-attack');
+  const zoekTerm = zoekInput.value.toLowerCase();
+  let gefilterd = allePokemon.filter(p => p.name.toLowerCase().includes(zoekTerm));
+  if (gekozenType) {
+    gefilterd = gefilterd.filter(p => p.types.some(t => t.type.name === gekozenType));
+  }
+  const minHp = Number(minHpInput.value) || 0;
+  const minAttack = Number(minAttackInput.value) || 0;
+  gefilterd = gefilterd.filter(p =>
+    p.stats[0].base_stat >= minHp &&
+    p.stats[1].base_stat >= minAttack
+  );
+  toonPokemonKaarten(gefilterd);
+}
+
 
 
