@@ -1,15 +1,22 @@
+// Globale variabelen
 let allePokemon = [];
 let gekozenType = '';
 let favorieten = JSON.parse(localStorage.getItem('favorieten') || '[]');
+
+// Helper: Haal details van een Pokémon op via de API
 async function haalPokemonDetails(url) {
   const res = await fetch(url);
   return await res.json();
 }
+
+// Haal de lijst van Pokémon op via de API
 async function haalPokemonLijst() {
   const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20');
   const data = await res.json();
   return data.results;
 }
+
+// Toon alle Pokémon-kaarten in de container
 function toonPokemonKaarten(pokemonLijst) {
   const container = document.getElementById('pokemon-kaarten');
   container.innerHTML = '';
@@ -29,6 +36,8 @@ function toonPokemonKaarten(pokemonLijst) {
     container.appendChild(kaart);
   });
 }
+
+// Toon de favorietenlijst in een <ul>
 function toonFavorieten(pokemonLijst) {
   const favList = document.getElementById('favorieten-lijst');
   favList.innerHTML = '';
@@ -43,6 +52,8 @@ function toonFavorieten(pokemonLijst) {
     favList.appendChild(li);
   });
 }
+
+// Toon modal met details van een Pokémon
 function toonModal(poke) {
   const modal = document.getElementById('modal');
   const content = document.getElementById('modal-details');
@@ -56,6 +67,8 @@ function toonModal(poke) {
   `;
   modal.classList.remove('verborgen');
 }
+
+// Favoriet toevoegen of verwijderen
 function wisselFavoriet(pokemonId) {
   if (favorieten.includes(pokemonId)) {
     favorieten = favorieten.filter(id => id !== pokemonId);
@@ -64,6 +77,8 @@ function wisselFavoriet(pokemonId) {
   }
   localStorage.setItem('favorieten', JSON.stringify(favorieten));
 }
+
+// Maak filterknoppen voor types
 function maakTypeKnoppen() {
   const types = new Set();
   allePokemon.forEach(p => p.types.forEach(t => types.add(t.type.name)));
@@ -83,6 +98,7 @@ function maakTypeKnoppen() {
   });
 }
 
+// Filteren op naam, type, HP en Attack
 function filterEnToon() {
   const zoekInput = document.getElementById('zoek');
   const minHpInput = document.getElementById('min-hp');
@@ -100,6 +116,8 @@ function filterEnToon() {
   );
   toonPokemonKaarten(gefilterd);
 }
+
+// Init: Haal data op en toon alles
 async function init() {
   const lijst = await haalPokemonLijst();
   // Haal details op voor alle Pokémon
@@ -109,70 +127,8 @@ async function init() {
   maakTypeKnoppen();
 }
 
+// Event listeners (worden pas toegevoegd als DOM geladen is)
 document.addEventListener('DOMContentLoaded', () => {
   init();
 
- 
-  document.getElementById('zoek').addEventListener('input', filterEnToon);
-  document.getElementById('min-hp').addEventListener('input', filterEnToon);
-  document.getElementById('min-attack').addEventListener('input', filterEnToon);
-
-  document.getElementById('type-knoppen').addEventListener('click', (e) => {
-    if (e.target.classList.contains('type-knop')) {
-      document.querySelectorAll('.type-knop').forEach(btn => btn.classList.remove('actief'));
-      e.target.classList.add('actief');
-      gekozenType = e.target.dataset.type;
-      filterEnToon();
-    }
-  });
-  document.getElementById('pokemon-kaarten').addEventListener('click', (e) => {
-    // Favoriet-knop
-    if (e.target.classList.contains('favoriet-knop')) {
-      e.stopPropagation();
-      const pokemonId = Number(e.target.dataset.id);
-      wisselFavoriet(pokemonId);
-      toonFavorieten(allePokemon);
-      filterEnToon();
-      return;
-    }
-    const kaart = e.target.closest('.pokemon-kaart');
-    if (kaart) {
-      const pokemonId = Number(kaart.dataset.id);
-      const poke = allePokemon.find(p => p.id === pokemonId);
-      if (poke) {
-        toonModal(poke);
-      }
-    }
-  });
-  document.getElementById('sluit-modal').onclick = () => {
-    document.getElementById('modal').classList.add('verborgen');
-  };
-  document.getElementById('modal').addEventListener('click', (e) => {
-    if (e.target.id === 'modal') {
-      document.getElementById('modal').classList.add('verborgen');
-    }
-  });
-  // Favoriet toevoegen via formulier
-  document.getElementById('favoriet-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const naam = document.getElementById('favoriet-naam').value.trim();
-    const foutmelding = document.getElementById('foutmelding');
-    if (!naam) {
-      foutmelding.textContent = 'Voer een naam in!';
-      return;
-    }
-    const poke = allePokemon.find(p => p.name.toLowerCase() === naam.toLowerCase());
-    if (!poke) {
-      foutmelding.textContent = 'Pokémon niet gevonden!';
-      return;
-    }
-    wisselFavoriet(poke.id);
-    toonFavorieten(allePokemon);
-    foutmelding.textContent = '';
-    document.getElementById('favoriet-naam').value = '';
-  });
-  
-  document.getElementById('jaar').textContent = new Date().getFullYear();
-});
-
- 
+  // Live filteren op naam, HP en
