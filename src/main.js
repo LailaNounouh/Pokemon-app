@@ -152,3 +152,24 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('modal').classList.add('verborgen');
     }
   });
+  // Favoriet toevoegen via formulier
+  document.getElementById('favoriet-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const naam = document.getElementById('favoriet-naam').value.trim();
+    const foutmelding = document.getElementById('foutmelding');
+    if (!naam) {
+      foutmelding.textContent = 'Voer een naam in!';
+      return;
+    }
+    const poke = allePokemon.find(p => p.name.toLowerCase() === naam.toLowerCase());
+    if (!poke) {
+      foutmelding.textContent = 'Pokémon niet gevonden!';
+      return;
+    }
+    wisselFavoriet(poke.id);
+    toonFavorieten(allePokemon);
+    foutmelding.textContent = '';
+    document.getElementById('favoriet-naam').value = '';
+  });
+
+ 
