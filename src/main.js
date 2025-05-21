@@ -29,6 +29,19 @@ function toonPokemonKaarten(pokemonLijst) {
     container.appendChild(kaart);
   });
 }
-
+function toonFavorieten(pokemonLijst) {
+  const favList = document.getElementById('favorieten-lijst');
+  favList.innerHTML = '';
+  const favorietPokemons = pokemonLijst.filter(p => favorieten.includes(p.id));
+  if (favorietPokemons.length === 0) {
+    favList.innerHTML = '<li>Geen favorieten gekozen.</li>';
+    return;
+  }
+  favorietPokemons.forEach(p => {
+    const li = document.createElement('li');
+    li.textContent = p.name.charAt(0).toUpperCase() + p.name.slice(1);
+    favList.appendChild(li);
+  });
+}
 
 
