@@ -56,5 +56,13 @@ function toonModal(poke) {
   `;
   modal.classList.remove('verborgen');
 }
+function wisselFavoriet(pokemonId) {
+  if (favorieten.includes(pokemonId)) {
+    favorieten = favorieten.filter(id => id !== pokemonId);
+  } else {
+    favorieten.push(pokemonId);
+  }
+  localStorage.setItem('favorieten', JSON.stringify(favorieten));
+}
 
 
