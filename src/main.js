@@ -135,3 +135,13 @@ document.addEventListener('DOMContentLoaded', () => {
       filterEnToon();
       return;
     }
+    const kaart = e.target.closest('.pokemon-kaart');
+    if (kaart) {
+      const pokemonId = Number(kaart.dataset.id);
+      const poke = allePokemon.find(p => p.id === pokemonId);
+      if (poke) {
+        toonModal(poke);
+      }
+    }
+  });
+
