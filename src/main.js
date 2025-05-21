@@ -171,5 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     foutmelding.textContent = '';
     document.getElementById('favoriet-naam').value = '';
   });
+  
+  document.getElementById('jaar').textContent = new Date().getFullYear();
+});
 
  
