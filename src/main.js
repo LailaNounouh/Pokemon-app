@@ -144,4 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-
+  document.getElementById('sluit-modal').onclick = () => {
+    document.getElementById('modal').classList.add('verborgen');
+  };
+  document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') {
+      document.getElementById('modal').classList.add('verborgen');
+    }
+  });
