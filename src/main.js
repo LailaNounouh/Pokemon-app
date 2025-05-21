@@ -100,6 +100,13 @@ function filterEnToon() {
   );
   toonPokemonKaarten(gefilterd);
 }
-
+async function init() {
+  const lijst = await haalPokemonLijst();
+  // Haal details op voor alle Pokémon
+  allePokemon = await Promise.all(lijst.map(p => haalPokemonDetails(p.url)));
+  toonPokemonKaarten(allePokemon);
+  toonFavorieten(allePokemon);
+  maakTypeKnoppen();
+}
 
 
