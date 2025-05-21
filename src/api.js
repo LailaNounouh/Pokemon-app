@@ -1,4 +1,3 @@
-// api.js
 // Functies voor het ophalen van Pokémon-data via de PokéAPI
 // Bron: https://pokeapi.co/docs/v2
 
@@ -10,13 +9,10 @@ export async function haalPokemonLijst() {
   const data = await antwoord.json();
   return data.results;
 }
-
 //Technische vereiste: detaildata ophalen via API
 
 export async function haalPokemonDetails(url) {
   const antwoord = await fetch(url);
   return await antwoord.json();
 }
-
-
 
