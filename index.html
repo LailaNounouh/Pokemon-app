@@ -2,42 +2,10 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Pokémon Cards-Laila Nounouh</title>
+  <title>Pokémon Cards - Laila Nounouh</title>
   <link rel="stylesheet" href="src/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>  
+</head>
 <body>
   <header>
     <h1>Pokémon Explorer</h1>
-    <input id="zoek" type="text" placeholder="Search on name...">
-    <input id="min-hp" type="number" placeholder="Min HP" style="width: 80px;">
-    <input id="min-attack" type="number" placeholder="Min Attack" style="width: 100px;">
-    <div id="type-knoppen"></div>
-  </header>
-<form id="favoriet-form" style="margin-bottom: 1em;">
-  <input type="text" id="favoriet-naam" required placeholder="Pokémon naam">
-  <button type="submit">Toevoegen aan favorieten</button>
-  <span id="foutmelding" style="color:red"></span>
-</form>
-
-  <main>
-    <div id="pokemon-kaarten" class="kaart-container"></div>
-    <section id="favorieten-sectie">
-      <h2>Favorieten</h2>
-      <ul id="favorieten-lijst"></ul>
-    </section>
-  </main>
-  <div id="modal" class="modal verborgen">
-    <div class="modal-inhoud">
-      <span id="sluit-modal" class="sluit">&times;</span>
-      <div id="modal-details"></div>
-    </div>
-  </div>
-  <script src="main.js"></script>
-  <footer style="text-align:center; margin-top:2em; padding:1em; border-top:1px solid #ccc; color:#666;">
-    &copy; <span id="jaar"></span> Laila Nounouh<br>
-    Data via <a href="https://pokeapi.co" target="_blank" rel="noopener">PokéAPI</a>
-  </footer>
-  
-</body>
-</html>
