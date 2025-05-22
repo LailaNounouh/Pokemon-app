@@ -1,4 +1,3 @@
-// favorieten.js
 // Functies voor het opslaan en wisselen van favorieten in localStorage
 // Bron: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 
