@@ -154,6 +154,7 @@ Deze screenshots zijn terug te vinden in het map screenshots
 - **Perplexity AI**
 - **ChatGPT**
 - **Eigen kennis en colleges**
+
 Deze screenshots zijn terug te vinden in het map screenshots
 ---
 📝 Licentie
