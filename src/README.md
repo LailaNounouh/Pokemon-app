@@ -111,3 +111,29 @@ Hieronder vind je een overzicht van de belangrijkste technische vereisten, met h
     package-lock.json
     package.json
 -Screenshots/
+
+
+---
+
+## 🚦 Zo gebruik je het Pokémon-project:
+
+1. **Download het project op je computer.**
+2. **Open een terminal in de projectmap en typ:**
+    "npm install"
+
+3. **Start de lokale server door te typen:**
+    "npm run dev"
+
+4. **Open je browser en ga naar:**
+http://localhost:5173/
+
+Je ziet nu de Pokémon-app live.
+
+**OF**
+
+**Open direct deze link in je browser:**
+https://lailanounouh.github.io/Pokemon-app/
+
+Je ziet nu de Pokémon-app live.
+
+---
