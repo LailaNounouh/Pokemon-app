@@ -26,3 +26,9 @@ De Pokémon Explorer is een webapplicatie waarmee gebruikers Pokémon kunnen bek
 - **Local Storage:** Voor het opslaan van favoriete Pokémon in de browser.
 
 ---
+## 🔗 Gebruikte API
+
+- **[PokéAPI](https://pokeapi.co/)**
+  - Gebruikt voor het ophalen van alle Pokémon-data (naam, afbeelding, stats, types, enz.)
+
+---
