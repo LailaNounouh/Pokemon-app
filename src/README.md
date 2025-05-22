@@ -137,3 +137,25 @@ https://lailanounouh.github.io/Pokemon-app/
 Je ziet nu de Pokémon-app live.
 
 ---
+## 📸 Screenshots
+
+- **Basisch overzicht**
+- **Filtersgebruik**
+- **Modalvenster**
+- **Responsive Design**
+- **LocalStorage**
+Deze screenshots zijn terug te vinden in het map screenshots
+---
+
+## 📚 Bronnen
+
+- **PokéAPI**
+- **Vite**
+- **Perplexity AI**
+- **ChatGPT**
+- **Eigen kennis en colleges**
+Deze screenshots zijn terug te vinden in het map screenshots
+---
+📝 Licentie
+© 2025 Laila Nounouh
+Data via PokéAPI
