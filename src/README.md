@@ -19,3 +19,10 @@ De Pokémon Explorer is een webapplicatie waarmee gebruikers Pokémon kunnen bek
 - **Formulier voor favorieten toevoegen met validatie**
 
 ---
+## 🛠️ Gebruikte technieken
+
+- **HTML, CSS en JavaScript:** Voor het maken van de webapp.
+- **PokéAPI:** Voor het ophalen van de Pokémon-informatie.
+- **Local Storage:** Voor het opslaan van favoriete Pokémon in de browser.
+
+---
